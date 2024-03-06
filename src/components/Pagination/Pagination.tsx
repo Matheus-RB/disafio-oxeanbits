@@ -5,7 +5,6 @@ import {
   chevronLeftIcon,
   chevronRightIcon,
 } from "@progress/kendo-svg-icons";
-import { Fragment } from "react/jsx-runtime";
 
 interface Props {
   page: number;
@@ -27,19 +26,19 @@ export const Pagination = ({
   };
 
   return (
-    <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-      <div className="flex sm:flex-1 sm:items-center sm:justify-between">
+    <div className="flex items-center justify-between border-t border-gray-200 bg-white py-3">
+      <div className="flex sm:flex-1 sm:items-center sm:justify-between gap-4">
         <div>
           <p className="text-sm text-gray-700">
-            Showing{" "}
+            Mostrando{" "}
             <span className="font-medium">
-              {Math.min((page - 1) * 20 + 1, total_pages)}
+              {Math.min((page - 1) * 20 + 1, total_results)}
             </span>{" "}
-            to{" "}
+            a{" "}
             <span className="font-medium">
-              {Math.min(page * 20, total_pages)}
+              {Math.min(page * 20, total_results)}
             </span>{" "}
-            of <span className="font-medium">{total_results}</span> results
+            de <span className="font-medium">{total_results}</span> resultados
           </p>
         </div>
         <div>
@@ -49,50 +48,72 @@ export const Pagination = ({
           >
             <button
               onClick={() => handlePageChange(1)}
-              className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center px-2 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              aria-label="First"
             >
-              <span className="sr-only">First</span>
               <SvgIcon icon={chevronDoubleLeftIcon} className="w-5" />
             </button>
             <button
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
-              className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center px-2 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              aria-label="Previous"
             >
-              <span className="sr-only">Previous</span>
               <SvgIcon icon={chevronLeftIcon} className="w-5" />
             </button>
-            {[1, page, total_pages]
-              .filter(
-                (pageNumber) => pageNumber >= 1 && pageNumber <= total_pages,
-              )
-              .map((pageNumber, index) => (
-                <Fragment key={index}>
-                  {index !== 1 && (
-                    <span className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300">{`...`}</span>
-                  )}
-                  <button
-                    onClick={() => handlePageChange(pageNumber)}
-                    key={pageNumber}
-                    className={`relative inline-flex items-center px-2 py-2 text-sm font-semibold ${pageNumber === page ? "bg-indigo-600 text-white" : "text-gray-900"} ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0`}
-                  >
-                    {pageNumber}
-                  </button>
-                </Fragment>
-              ))}
+            {page !== 1 && (
+              <span
+                className="w-9 h-9 flex relative justify-center items-center px-2 py-2 text-sm font-semibold
+                ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              >
+                ...
+              </span>
+            )}
+            {page - 1 !== 0 && (
+              <button
+                onClick={() => handlePageChange(page - 1)}
+                className="w-9 h-9 flex relative justify-center items-center px-2 py-2 text-sm font-semibold
+                ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              >
+                {page - 1}
+              </button>
+            )}
+            <button
+              className="w-9 h-9 justify-center relative inline-flex items-center px-2 py-2 text-sm font-semibold
+                bg-indigo-600 text-white ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 focus:z-20 focus:outline-offset-0"
+            >
+              {page}
+            </button>
+            {page + 1 < total_pages && (
+              <button
+                onClick={() => handlePageChange(page + 1)}
+                className="w-9 h-9 flex relative justify-center items-center px-2 py-2 text-sm font-semibold
+                ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              >
+                {page + 1}
+              </button>
+            )}
+            {page < total_pages && (
+              <span
+                className="w-9 h-9 flex relative justify-center items-center px-2 py-2 text-sm font-semibold
+                ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              >
+                ...
+              </span>
+            )}
             <button
               onClick={() => handlePageChange(page + 1)}
               disabled={page === total_pages}
-              className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center px-2 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              aria-label="Next"
             >
-              <span className="sr-only">Next</span>
               <SvgIcon icon={chevronRightIcon} className="w-5" />
             </button>
             <button
               onClick={() => handlePageChange(total_pages)}
-              className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center px-2 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              aria-label="Last"
             >
-              <span className="sr-only">Last</span>
               <SvgIcon icon={chevronDoubleRightIcon} className="w-5" />
             </button>
           </nav>

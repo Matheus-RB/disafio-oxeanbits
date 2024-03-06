@@ -29,23 +29,23 @@ const Movie = () => {
   return (
     <div className="p-4 bg-[#f8f9fa]">
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
-      <div
-        className="border-b-2 relative overflow-hidden"
-        style={{
-          background: `linear-gradient(to bottom right, rgba(157.5, 178.5, 199.5, 1), rgba(157.5, 178.5, 199.5, 0.44)), url('${path_image}${data.backdrop_path}')`,
-          //backgroundPosition: "left calc((50vw - 170px) - 340px) top",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      <div className="border-b-2 relative overflow-hidden">
+        <div
+          className="hidden md:block absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat"
+          style={{
+            backgroundImage: `url('${path_image}${data.backdrop_path}')`,
+            backgroundSize: "cover",
+            opacity: 0.3,
+          }}
+        />
         <div className="container mx-auto px-4 py-8 z-10">
-          <div className="flex">
+          <div className="flex flex-col md:flex-row">
             <img
-              className="w-96 h-auto mr-8"
+              className="w-full md:w-96 h-auto md:mr-8"
               src={`${path_image}${data.poster_path}`}
               alt={data.title}
             />
-            <div>
+            <div className="pt-4 sm:pt-0">
               <p className="mb-4">
                 <strong>Sinopse:</strong> {data.overview}
               </p>

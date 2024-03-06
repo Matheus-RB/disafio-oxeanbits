@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# Instruções para Iniciar um Projeto React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este guia fornecerá instruções passo a passo sobre como iniciar um projeto React a partir de um repositório GitHub, configurar as variáveis de ambiente e obter uma chave de API do site [The Movie Database (TMDb)](https://www.themoviedb.org/) para uso em seu projeto.
 
-Currently, two official plugins are available:
+## Passos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Clone o Repositório do GitHub:**
+   git clone https://github.com/Matheus-RB/disafio-oxeanbits
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. **Instale as Dependências:**
+npm install
 
-- Configure the top-level `parserOptions` property like this:
+3. **Copie o Arquivo `.env.example`:**
+- No diretório do seu projeto, localize o arquivo `.env.example`.
+- Faça uma cópia deste arquivo e renomeie-a para `.env`:
+  ```
+  cp .env.example .env
+  ```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+4. **Obtenha uma Chave de API do TMDb:**
+- Acesse [The Movie Database (TMDb)](https://www.themoviedb.org/) e crie uma conta ou faça login, se necessário.
+- Após fazer login, vá para a seção de configurações da sua conta.
+- Na seção de API, gere uma chave de API (API Key) e token.
+- Copie a chave de API e o token gerado.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+5. **Configure a Chave de API no Arquivo `.env`:**
+- Abra o arquivo `.env` que você criou anteriormente.
+- Adicione uma variável de ambiente:
+  ```
+  VITE_API_KEY=sua_chave_de_api_aqui
+  ```
+  ```
+  VITE_TOKEN=seu_token_aqui
+  ```
+
+6. **Inicie o Servidor de Desenvolvimento:**
+npm run dev
